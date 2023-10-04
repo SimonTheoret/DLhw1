@@ -1,0 +1,291 @@
+\documentclass[12pt]{article}
+\usepackage[canadien]{babel} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{url}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{todonotes}
+
+% If your paper is accepted, change the options for the package
+% aistats2e as follows:
+%
+%\usepackage[accepted]{aistats2e}
+%
+% This option will print headings for the title of your paper and
+% headings for the authors names, plus a copyright note at the end of
+% the first column of the first page.
+\setlength{\parindent}{0cm}
+\addtolength{\oddsidemargin}{-2cm}
+\addtolength{\evensidemargin}{-2cm}
+\setlength{\textwidth}{17.78cm}
+\addtolength{\topmargin}{-2.25cm}
+\setlength{\textheight}{23.24cm}
+\addtolength{\parskip}{5mm}
+\pagestyle{fancy}
+
+%************
+%* COMMANDS *
+%************
+
+\input{math_commands.tex}
+
+\newif\ifexercise
+\exercisetrue
+%\exercisefalse
+
+\newif\ifsolution
+\solutiontrue
+%\solutionfalse
+
+\usepackage{booktabs}
+\usepackage[ruled,vlined]{algorithm2e}
+
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{exercise}{Question}%[chapter]
+\newtheorem{answer}{Answer} % asterisk to remove ordering
+
+\newcommand{\Exercise}[1]{
+\ifexercise#1\fi
+}
+
+\newcommand{\pder}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\der}[2]{\frac{d #1}{d #2}}
+\definecolor{answer}{rgb}{0.00, 0.12, 0.60}
+\newcommand{\Answer}[1]{
+\ifsolution\color{answer}\begin{answer}#1\end{answer}\fi
+}
+
+\newif\ifexercise
+\exercisetrue
+%\exercisefalse
+
+\newif\ifsolution
+\solutiontrue
+%\solutionfalse
+
+\usepackage{enumitem}
+\newcommand{\staritem}{
+\addtocounter{enumi}{1}
+\item[$\phantom{x}^{*}$\theenumi]}
+\setlist[enumerate,1]{leftmargin=*, label=\arabic*.}
+
+\begin{document}
+
+
+\fancyhead{}
+\fancyfoot{}
+
+\fancyhead[L]{
+  \begin{tabular}[b]{l}
+    IFT6135-A2023  \\
+    Prof: Aishwarya Agrawal \\
+  \end{tabular}
+}
+\fancyhead[R]{
+  \begin{tabular}[b]{r}
+    Assignment 1  \\
+    Multilayer Perceptrons and Convolutional Neural Networks \\
+  \end{tabular}
+}
+\fancyfoot[C]{- Do not distribute -}
+
+\vspace{1cm}
+
+\shorthandoff{:}
+{\textbf{Due Date: October 19th, 2023 at 11:00 pm}}\\
+
+
+\vspace{-0.5cm}
+\underline{Instructions}%
+\renewcommand{\labelitemi}{\textbullet}
+
+\begin{itemize}
+\item \emph{For all questions, show your work!}
+\item \emph{Use LaTeX and the template we provide when writing your answers.
+You may reuse most of the notation shorthands, equations and/or tables.
+See the assignment policy on the course website for more details.}
+\item \emph{The use of AI tools like Chat-GPT to find answers or parts of answers for any question in this assignment is not allowed. However, you can use these tools to improve the quality of your writing, like fixing grammar or making it more understandable. If you do use these tools, you must clearly explain how you used them and which questions or parts of questions you applied them to. Failing to do so or using these tools to find answers or parts of answers may result in your work being completely rejected, which means you'll receive a score of 0 for the entire theory or practical section.}
+\item \emph{Submit your answers electronically via Gradescope.}
+\item \emph{TAs for this assignment are \textbf{Saba Ahmadi, Sahar Dastani, and Sophie Xhonneux.}}
+\end{itemize}
+
+\vspace{0.2cm}
+
+% Q1
+\begin{exercise}[5-2-2-1-3-2] (\textbf{Activation Functions and Backpropagation})
+\Exercise{
+\label{ex:activation}
+\emph{Please note that during marking we will not read more than the question says you should write, e.g.\ if the question asks for one sentence, only the first sentence will be read.}
+\begin{enumerate}
+    \item Given the following 3 layer neural network $\vo = f(\vx)$
+    \begin{equation}
+    \begin{aligned}
+        \vh &= \mW_1 \vx + \vb_1 \\
+        \va &= \sigmoid( \mW_2 \vh + \vb_2 ) \\
+        \vo &= \mW_3 \va +\vb_3,
+    \end{aligned}
+    \end{equation}
+    where $\vx\in\mathrm{R}^n$, $\vh\in\mathrm{R}^m$, $\va\in\mathrm{R}^r$, $\vo\in\mathrm{R}^s$, $\sigmoid(x) = \frac{1}{1+e^{-x}}$, and a loss function $\mathrm{L}(\vo,\vy)$ apply the backpropagation algorithm computing the gradients with respect to the weights $\mW_1,\mW_2,\mW_3, \vb_1,\vb_2,\vb_3$ to show which are the necessary intermediate vectors that we need to store during the forward pass such as to not need recomputation. Use the notation provided above.
+    \item Assuming each floating point number takes two bytes to store, give the amount of memory in bytes, needed to store during the forward pass for the backward pass to not need recomputation.
+    \item Compute the left and right derivative of the \texttt{ReLU} function at $x=0$. Show your work.
+    \item Give \textbf{one} sentence to explain why we cannot use the \texttt{ReLU} function if we want to differentiate our neural network twice.
+    \item The swish activation function is defined as $ g(x) = x  \sigmoid(\beta  x)$. Simplify the function in the limit as $\beta$ approaches 0 and infinity. Show your work.
+    \item Give 1 reason (one sentence) as to why we might want to use the swish function over the \texttt{ReLU}. Give 1 reason (one sentence) as to why we might want to use the \texttt{ReLU} over the swish (hint: monotonicity).
+\end{enumerate}
+}
+% TODO: vérifier les différentiation de matrices!!
+\Answer{
+  \begin{align*}
+    \pder{L}{W_1} &= \pder{L}{o} \pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{h} \pder{h}{W_{1}}\\
+    &= \pder{L}{o} W_{3} (1-\sigma(W_{2}h+b_{2}))x
+  \end{align*}
+  \begin{align*}
+    \pder{L}{W_2} &= \pder{L}{o} \pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{W_{2}}\\
+    &= \pder{L}{o} W_{3} (1-\sigma(W_{2}h+b_{2}))h
+  \end{align*}
+  \begin{align*}
+    \pder{L}{W_3} &=
+  \end{align*}
+
+}
+\end{exercise}
+
+% Q2
+\begin{exercise}[4-4-5-3] (\textbf{Convolution Basics})
+\Exercise{
+\label{ex:cnn}
+\begin{enumerate}
+    \item \textbf{Short answers:}
+    \begin{enumerate}
+        \item When you apply a filter to feature maps, under what conditions does the size of the feature map decrease?
+        \item What impact does a larger stride have?
+        \item Explain what you understand from the term "sparse connections" in terms of connections between two layers in a neural network.
+        \item As we are aware, each \textit{Convolutional} layer contains learnable parameters, including weights and biases. If you decide not to include biases in the \textit{Convolution} layer of the following network, what will be the impact on its performance (compared to the case when the \textit{Convolution} layer includes biases)?
+        $$Input \rightarrow Convolution \rightarrow Batch Norm \rightarrow Activation \rightarrow Output$$
+    \end{enumerate}
+    \item \textbf{True/False:}
+    \begin{enumerate}
+        \item In a convolutional layer, the number of weights is contingent upon the depth of the input data volume.
+        \item In a convolutional layer, the number of biases equals the number of filters.
+        \item The total number of parameters is influenced by the stride and padding.
+        \item Maxpooling operates only on the height and width dimensions of an image.
+    \end{enumerate}
+    \item \textbf{Convolutional Architecture:} Let's analyze the convolutional neural network (CNN) defined by the layers in the left column. For each layer, determine the output volume's shape and the number of parameters. It's worth noting that in our notation, "Conv4-N-Pvalid-S2" represents a convolutional layer with N 4x4 filters, valid padding, and a stride of 2.
+
+    \begin{center}
+    \begin{tabular}{| c | c | c |} 
+     \hline
+     Layers & Output volume dimensions & Number of parameters \\ [0.5ex] 
+     \hline
+     Input & $64 \times 64 \times 1$ &  \\ 
+     \hline
+     Conv4-5-Pvalid-S2 &  &  \\
+     \hline
+     Pool3 &  &  \\
+     \hline
+     Conv3-5-Pvalid-S1 &  &  \\
+     \hline
+     Pool2 &  &  \\ [1ex] 
+     \hline
+     FC5 &  &  \\ [1ex] 
+     \hline
+    \end{tabular}
+    \end{center}
+
+    \item \textbf{Receptive Fields:} Receptive Field is defined as the size of the region in the input that produces a feature. For example, when using a Conv-3x3 layer, each feature is generated by a 3x3 grid in the input. Having two Conv-3x3 layers in succession leads to a 5x5 receptive field. An example of this is outlined in Figure \ref{fig:Obj-1}. Note that there is a receptive field associated with each feature (Figure \ref{fig:Obj-1} shows the receptive field associated with the yellow-colored feature in Layer 3), where a feature is a cell in the output activation map. 
+
+    \begin{figure}
+      \centering
+      \includegraphics[natwidth=640, natheight=480]{./Figures/receptive.png}
+      \caption{Illustration of Receptive Field.}
+      \label{fig:Obj-1}
+    \end{figure}
+
+    Consider a network architecture consisting solely of 5 Convolution layers, each with kernel size 5, stride 1, zero-padding of two pixels on all four sides, 8 intermediate channels, and one output channel. What is the receptive field of the final features obtained through this architecture, that is, what is the size of the input that corresponds to a particular pixel position in the output?
+\end{enumerate}
+}
+
+\Answer{
+% Write your answer here
+}
+\end{exercise}
+
+% Q3
+\begin{exercise}[10] (\textbf{Mixture Models meet Neural Networks})
+\Exercise{
+\label{ex:mixture_model}
+
+Consider modelling some data $\{(\vx_n, y_n)\}_{n=1}^N$, $\vx_n \in \mathbb{R}^d$, $y_n \in \{0,1\}$, using a mixture of logistic regression models, where we model each binary label $y_n$ by first picking one of the $K$ logistic regression models, based on the value of a latent variable $z_n \sim \text{Categorical}(\pi_1, ..., \pi_K)$ and then generating $y_n$ \textit{conditioned} on $z_n$ as $y_n \sim \text{Bernoulli}[\sigma(\vw_{z_n}^T \vx_n)]$, where $\sigma(\cdot)$ is the sigmoid activation function.
+
+Now consider the \textit{marginal} probability of the label $y_n = 1$, given $\vx_n$, i.e., $p(y_n = 1 | \vx_n)$, and show that this quantity can also be thought of as the output of a neural network. Clearly specify what is the input layer, the hidden layer(s), activations, the output layer, and the connection weights of this neural network.
+}
+
+
+\Answer{
+% Write your answer here
+}
+\end{exercise}
+
+% Q4
+\begin{exercise}[10] (\textbf{Cross Entropy})
+\Exercise{
+\label{ex:cross_entropy}
+
+Cross-entropy loss function (a popular loss function) is given by:
+
+$$ce(p, x) = - x \log(p) - (1 - x) \log(1 - p)$$
+
+This derivation assumes that $x$ is binary, i.e. $x \in \{0, 1\}$. However, the same loss function is often also used with real-valued $x \in (0, 1)$.
+
+\begin{enumerate}
+\item Derive the cross-entropy loss function using the maximum likelihood principle for $x \in \{0, 1\}$.
+\item Suggest a probabilistic interpretation of the cross-entropy loss function when $x \in \left(0, 1\right)$. (HINT: KL divergence between two distributions)
+\end{enumerate}
+}
+
+\Answer{
+% Write your answer here
+}
+\end{exercise}
+
+% Q5
+\begin{exercise} [1-4-2] (\textbf{Optimization})
+\Exercise{
+\label{ex:Optimization}
+
+\item Suppose we want to minimize \(f(x, y) = y^2 + (y - x)^2\).
+\begin{enumerate}
+    \item Find the true minimum.
+    \item For each step size given below, compute:
+    \begin{enumerate}
+        \item The value of (x1, y1) using the full gradient descent (not stochastic) at the starting point (x0, y0) = (1, 1).
+        \item The L2 distance of (x1, y1) from the true minimum.
+        
+        Please note that the (x1, y1) is (x, y) coordinate after 1 step of gradient descent.
+
+        \begin{enumerate}
+            \item Step size \(s = 0.01\).
+            \item Step size \(s = 0.1\).
+            \item Step size \(s = 10\).
+        \end{enumerate}
+    \end{enumerate}
+    \item What are the implications of using different step sizes in gradient descent, and what strategies can be employed to effectively address these implications?
+\end{enumerate}
+}
+
+\Answer{
+% Write your answer here
+}
+\end{exercise}
+
+\end{document}
