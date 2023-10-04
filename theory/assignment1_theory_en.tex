@@ -147,15 +147,26 @@ See the assignment policy on the course website for more details.}
 \Answer{
 % Write your answer here
   \begin{align*}
-    \pder{L}{W_1} &= \pder{L}{o} \pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{h} \pder{h}{W_{1}}\\
-    &= \pder{L}{o} W_{3} (1-\sigma(W_{2}h+b_{2}))x
+    \pder{L}{W_1} &=    \pder{h}{W_{1}}\pder{\sigma}{h}\pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
+    &= x^{T}(1-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}
   \end{align*}
+  To calculate the gradient with respect to $W_{1}$, we need to store the
+  vectors $x,\, h,\, b_{2},\, a $ and the matrix $W_{2}$ and $W_{3}$
   \begin{align*}
-    \pder{L}{W_2} &= \pder{L}{o} \pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{W_{2}}\\
-    &= \pder{L}{o} W_{3} (1-\sigma(W_{2}h+b_{2}))h
+    \pder{L}{W_2} &= \pder{\sigma}{W_{2}} \pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
+    &=  h^{T}(1-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}
   \end{align*}
+  To calculate the gradient with respect to $W_{2}$, we need to store the
+  vectors $ h,\, b_{2},\, a $ and the matrix $W_{2}$ and $W_{3}$
   \begin{align*}
-    \pder{L}{W_3} &=
+    \pder{L}{W_3} &= \pder{o}{W_{3}} \pder{L}{o}\\
+    &= a^{T} \pder{L}{o}
+  \end{align*}
+  To calculate the gradient with respect to $W_{3}$, we need to store the
+  vectors $a$.
+  \begin{align*}
+    \pder{L}{W_3} &= \pder{o}{W_{3}} \pder{L}{o}\\
+    &= a^{T} \pder{L}{o}
   \end{align*}
 }
 \end{exercise}
