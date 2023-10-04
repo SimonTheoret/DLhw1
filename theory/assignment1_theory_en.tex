@@ -146,29 +146,90 @@ See the assignment policy on the course website for more details.}
 
 \Answer{
 % Write your answer here
+\subsubsection*{1}
   \begin{align*}
     \pder{L}{W_1} &=    \pder{h}{W_{1}}\pder{\sigma}{h}\pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
-    &= x^{T}(1-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}
+    &= x^{T}(\bold{1}-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}\\
+    &= x^{T}(\bold{1}-a) W_{3} \pder{L}{o}
   \end{align*}
   To calculate the gradient with respect to $W_{1}$, we need to store the
-  vectors $x,\, h,\, b_{2},\, a $ and the matrix $W_{2}$ and $W_{3}$
+  vectors $x,\, a $ and the matrix and $W_{3}$
   \begin{align*}
     \pder{L}{W_2} &= \pder{\sigma}{W_{2}} \pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
-    &=  h^{T}(1-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}
+    &=  h^{T}(\bold{1}-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}\\
+    &=  h^{T}(\bold{1}-a) W_{3} \pder{L}{o}
   \end{align*}
   To calculate the gradient with respect to $W_{2}$, we need to store the
-  vectors $ h,\, b_{2},\, a $ and the matrix $W_{2}$ and $W_{3}$
+  vectors $ h,\, a $ and the matrix and $W_{3}$
   \begin{align*}
     \pder{L}{W_3} &= \pder{o}{W_{3}} \pder{L}{o}\\
     &= a^{T} \pder{L}{o}
   \end{align*}
   To calculate the gradient with respect to $W_{3}$, we need to store the
-  vectors $a$.
+  vector $a$.
   \begin{align*}
-    \pder{L}{W_3} &= \pder{o}{W_{3}} \pder{L}{o}\\
-    &= a^{T} \pder{L}{o}
+    \pder{L}{b_{1}} &=   \pder{h}{b_{1}}\pder{\sigma}{h}\pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
+    &= (\bold{1}-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}\\
+    &= (\bold{1}-a) W_{3} \pder{L}{o}
   \end{align*}
+  To calculate the gradient with respect to $b_{1}$, we need to store the
+  vectors $ a $ and the matrix $W_{2}$.
+  \begin{align*}
+    \pder{L}{b_{2}} &=\pder{\sigma}{b_{2}} \pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
+    &=  (\bold{1}-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}\\
+    &=  (\bold{1}-a) W_{3} \pder{L}{o}
+  \end{align*}
+  To calculate the gradient with respect to $b_{2}$, we need to store the
+  vectors $ a $ and the matrix $W_{3}$.
+  \begin{align*}
+    \pder{L}{b_{3}} &= \pder{o}{b_{3}} \pder{L}{o}\\
+    &= \pder{L}{o}
+  \end{align*}
+  To calculate the gradient with respect to $b_{3}$, we don need to store any
+  vector. We only need to compute the derivative of $L$ with respect to $o$.
+\subsubsection*{2}
+  To compute the gradient with respect to $W_{1}, W_{2}, W_{3}, b_{1}, b_{2}$ and
+  $b_{3}$, we need to store the following vectors and matrices:
+  \begin{equation*}
+    x \in \R^{n}, \, a \in \R^{r}, \, h \in \R^{m}, \,W_{3} \in \R^{s \times r}, \, W_{2} \in \R^{r \times m}.
+  \end{equation*}Therefore, we need a total amount of $2(n+r+m+sr+rm)$ bytes to
+  store all of these numbers.
+\subsubsection*{3}
+Firstly, we need to calculate the right limit:
+\begin{equation*}
+  \lim_{x\to0} \frac{ Relu(x)-0 }{x-0},\, x > 0
+\end{equation*}This limit is obvously 1, as the expression can be reduced to 1
+because $Relu(x) = x$ when $x\geq0$.
+The other left side derivative is
+
+\begin{align*}
+  \lim_{x\to0} \frac{ Relu(x)-0 }{x-0} &= \lim_{x\to0} \frac{0}{x} \\
+  &= 0 \, \text{for $x$ < 0}
+\end{align*}We can conclude that the left side derivative is 0 around 0.
+
 }
+\subsubsection*{4}It would make our gradients vanish (i.e. equals 0) as the second derivative of
+the $Relu$ function is always $0$.
+\subsubsection{5}
+The swish function is defined as $g(x) = \frac{x}{1+e^{-\beta x}}$. Let's first
+calculate the limit when $\beta \to 0$:
+\begin{align*}
+  \lim_{\beta \to 0} \frac{x}{1+e^{-\beta x}} &= \frac{x}{1+\lim_{\beta \to 0} e^{-\beta x}}\\
+  &=  \frac{x}{1+ e^{\lim_{\beta \to 0}-\beta x}} \quad \text{$e^{x}$ is continuous}\\
+  &=  \frac{x}{1+ e^{0}}\\
+  &=  \frac{x}{2}
+\end{align*}
+We can calculate the limit when $\beta \to \infty$:
+\begin{align*}
+  \lim_{\beta \to \infty} \frac{x}{1+e^{-\beta x}} &= \frac{x}{1+\lim_{\beta \to \infty} e^{-\beta x}}\\
+  &= \frac{x}{1+\lim_{\beta \to \infty} \frac{1}{e^{\beta x}}}\\
+  &=  \frac{x}{1+ 0}\\
+  &=  x
+\end{align*}
+\subsubsection*{6}
+%TODO: Find a real answer
+We might prefer the swish function because it is a smooth. We might
+prefer the Relu function because it is convex.
 \end{exercise}
 
 % Q2
@@ -228,6 +289,22 @@ See the assignment policy on the course website for more details.}
 
 \Answer{
 % Write your answer here
+\subsubsection*{1}
+\bold{a} If you apply a filter with a receptive field bigger than 1, and without
+% TODO
+\bold{insert padding name here} padding, the feature map size decrease.
+\bold{b} It reduces the size of the feature map
+\bold{c}
+% TODO: Better formulation
+Two layers are sparsely connected if the matrix $A$ in the  is mostly composed of
+zeroes
+\bold{d} The bias are not useful in this case, as they are eliminated by the
+BatchNorm and added back by the BatchNorm layer.
+\subsubsection*{2}
+\bold{a} \bold{aka le nombre de channels est important ? }
+\bold{b} False
+\bold{c} True
+\bold{d}
 }
 \end{exercise}
 
