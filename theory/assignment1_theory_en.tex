@@ -290,21 +290,47 @@ prefer the Relu function because it is convex.
 \Answer{
 % Write your answer here
 \subsubsection*{1}
-\bold{a} If you apply a filter with a receptive field bigger than 1, and without
+\begin{enumerate}[label=(\alph*)]
+ \item If you apply a filter with a receptive field bigger than 1, and without
 % TODO
-\bold{insert padding name here} padding, the feature map size decrease.
-\bold{b} It reduces the size of the feature map
-\bold{c}
+insert padding name here padding, the feature map size decrease.
+ \item It reduces the size of the feature map
+ \item
 % TODO: Better formulation
 Two layers are sparsely connected if the matrix $A$ in the  is mostly composed of
 zeroes
-\bold{d} The bias are not useful in this case, as they are eliminated by the
+ \item The bias are not useful in this case, as they are eliminated by the
 BatchNorm and added back by the BatchNorm layer.
+\end{enumerate}
 \subsubsection*{2}
-\bold{a} \bold{aka le nombre de channels est important ? }
-\bold{b} False
-\bold{c} True
-\bold{d}
+\begin{enumerate}[label=(\alph*)]
+\item aka le nombre de channels est important ?
+\item False
+\item True
+\item
+\end{enumerate}
+\subsubsection*{3}
+
+    \begin{center}
+    \begin{tabular}{| c | c | c |}
+     \hline
+     Layers & Output volume dimensions & Number of parameters \\ [0.5ex]
+     \hline
+     Input & $64 \times 64 \times 1$ &  \\
+     \hline
+     Conv4-5-Pvalid-S2 & $31 \times 31 \times 5$  & $a$ \\
+     \hline
+     Pool3 & $29 \times 29 \times 5$ &  0 \\
+     \hline
+     Conv3-5-Pvalid-S1 & $27 \times 27 \times 5$ & $a$ \\
+     \hline
+     Pool2 & $26 \times 26 \times 5$ &  0 \\ [1ex]
+     \hline
+     FC5 & $5 \times 1 \times 1$ &  \\ [1ex]
+     \hline
+    \end{tabular}
+    \end{center}
+\subsubsection*{4}
 }
 \end{exercise}
 
@@ -321,6 +347,20 @@ Now consider the \textit{marginal} probability of the label $y_n = 1$, given $\v
 
 \Answer{
 % Write your answer here
+The input layer is the vector $x$.  The  hidden layer is to calculate the
+category of the latent variable $z$:
+\begin{equation*}
+  z = OneHot(\text{argmax}(\text{softmax}(Ax+b_{1}))) \in \R^{k}
+\end{equation*}It's activation function is a softmax, the connection weights are
+in the matrix $A$  and it has a bias $b_{1}$. To represent $z$ as a specific
+category, we select the index of the maximum element of the softmax and encode
+it in a onehot vector. The output layer is the following:
+\begin{equation*}
+  y = g(\sigma((W z)^{T}x)),
+\end{equation*}where $W = [w_{z_{1}}, w_{z_{2}}, ..., w_{z_{k}}] \in \R^{d \times k}$
+and $g(x) = 1$ if $x\geq 0.5$ else $0$. It has the sigmoid activation function, no
+bias, and uses the vector $z$ to select the right weights $w_{i}$. Notice how
+multiplying $W$ by $z$ result in $w_{z_{i}}$, where $z$ is of the category $i$.
 }
 \end{exercise}
 
