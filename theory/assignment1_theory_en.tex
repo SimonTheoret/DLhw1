@@ -228,7 +228,7 @@ We can calculate the limit when $\beta \to \infty$:
 \end{align*}
 \subsubsection*{6}
 %TODO: Find a real answer
-We might prefer the swish function because it is a smooth. We might
+We might prefer the swish function because it is a smooth function. We might
 prefer the Relu function because it is convex.
 \end{exercise}
 
@@ -299,8 +299,9 @@ insert padding name here padding, the feature map size decrease.
 % TODO: Better formulation
 Two layers are sparsely connected if the matrix $A$ in the  is mostly composed of
 zeroes
- \item The bias are not useful in this case, as they are eliminated by the
-BatchNorm and added back by the BatchNorm layer.
+ \item The bias inside the convolution layer are not useful in this case,
+        substracted by the normalization  and then added back by the Batch
+        normalization layer.
 \end{enumerate}
 \subsubsection*{2}
 \begin{enumerate}[label=(\alph*)]
@@ -316,17 +317,17 @@ BatchNorm and added back by the BatchNorm layer.
      \hline
      Layers & Output volume dimensions & Number of parameters \\ [0.5ex]
      \hline
-     Input & $64 \times 64 \times 1$ &  \\
+     Input & $64 \times 64 \times 1$ & 0  \\
      \hline
-     Conv4-5-Pvalid-S2 & $31 \times 31 \times 5$  & $a$ \\
+     Conv4-5-Pvalid-S2 & $31 \times 31 \times 5$  & $(4 \times 4 \times 1 + 1) \times 5 = 85$ \\
      \hline
      Pool3 & $29 \times 29 \times 5$ &  0 \\
      \hline
-     Conv3-5-Pvalid-S1 & $27 \times 27 \times 5$ & $a$ \\
+     Conv3-5-Pvalid-S1 & $27 \times 27 \times 5$ & $(3 \times 3 \times 1 + 1) \times 5 = 50$ \\
      \hline
      Pool2 & $26 \times 26 \times 5$ &  0 \\ [1ex]
      \hline
-     FC5 & $5 \times 1 \times 1$ &  \\ [1ex]
+     FC5 & $5 \times 1 \times 1$ & $26 \times (26 +1) \times 5 = 3510$ \\ [1ex]
      \hline
     \end{tabular}
     \end{center}
