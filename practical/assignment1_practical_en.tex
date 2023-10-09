@@ -193,7 +193,7 @@ Convolutional neural networks (CNN) differ from MLPs mainly because of two compo
 An important skill for any deep learning practitioner is being able to implement a state-of-the-art architecture yourself using a deep learning library.
 
 In this section, you will implement one of the most influential CNN architectures of all time (VGG16) using PyTorch. You will then perform several experiments with it. 
-\vspace{}
+\vspace{1em}
 \begin{enumerate}[label=(\theexercise.\arabic*)]
     \item Read the first 4 pages of \href{https://arxiv.org/pdf/1409.1556.pdf}{the original VGG16 paper}.
     \item Use the information found in the paper to complete the code for the VGG16 model in the Colab notebook. Use the model in column D of the table on page 3. Note that since CIFAR-10 only has 10 classes compared to the 1000 classes used in the paper, the final fully connected layer will have an output dimension of 10 instead of 1000. Use \ttt{xavier\_uniform} initialization for all the layers with weights.
