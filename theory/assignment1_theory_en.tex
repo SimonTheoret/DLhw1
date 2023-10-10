@@ -146,24 +146,26 @@ See the assignment policy on the course website for more details.}
 
 \Answer{
 % Write your answer here
+% TODO: add z and \sigma in calculations...
 \subsubsection*{1}
+Let $z=W_{2}h+b_{2}$.
   \begin{align*}
-    \pder{L}{W_1} &=    \pder{h}{W_{1}}\pder{\sigma}{h}\pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
-    &= x^{T}(\bold{1}-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}\\
-    &= x^{T}(\bold{1}-a) W_{3} \pder{L}{o}
+    \pder{L}{W_1} &= \pder{L}{o} \pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{z}\pder{z}{h}\pder{h}{W_{1}}\\
+    &= \pder{L}{o} W_{3} \sigma(a)(\bold{1}-\sigma(W_{2}h+b_{2}))W_{2}x^{T}\\
+    &= \pder{L}{o} W_{3} (\bold{1}-a) W_{2} x^{T}
   \end{align*}
   To calculate the gradient with respect to $W_{1}$, we need to store the
   vectors $x,\, a $ and the matrix and $W_{3}$
   \begin{align*}
-    \pder{L}{W_2} &= \pder{\sigma}{W_{2}} \pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
-    &=  h^{T}(\bold{1}-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}\\
-    &=  h^{T}(\bold{1}-a) W_{3} \pder{L}{o}
+    \pder{L}{W_2} &= \pder{L}{o}\pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{W_{2}} \\
+    &= \pder{L}{o}  W_{3} (\bold{1}-\sigma(W_{2}h+b_{2}))h^{T}\\
+    &= \pder{L}{o} W_{3} (\bold{1}-a) h^{T}
   \end{align*}
   To calculate the gradient with respect to $W_{2}$, we need to store the
   vectors $ h,\, a $ and the matrix and $W_{3}$
   \begin{align*}
-    \pder{L}{W_3} &= \pder{o}{W_{3}} \pder{L}{o}\\
-    &= a^{T} \pder{L}{o}
+    \pder{L}{W_3} &= \pder{L}{o}\pder{o}{W_{3}} \\
+    &= \pder{L}{o}a^{T}
   \end{align*}
   To calculate the gradient with respect to $W_{3}$, we need to store the
   vector $a$.
