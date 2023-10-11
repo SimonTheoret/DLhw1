@@ -152,7 +152,7 @@ Let $z=W_{2}h+b_{2}$.
   \begin{align*}
     \pder{L}{W_1} &= \pder{L}{o} \pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{z}\pder{z}{h}\pder{h}{W_{1}}\\
     &= \pder{L}{o} W_{3} (\sigma(a)\odot(\bold{1}-\sigma(W_{2}h+b_{2})))W_{2}x^{T}\\
-    &= \pder{L}{o} W_{3} (\bold{1}-a) W_{2} x^{T}
+    &= \pder{L}{o} W_{3} (a \odot (\bold{1}-a)) W_{2} x^{T}
   \end{align*}
   To calculate the gradient with respect to $W_{1}$, we need to store the
   vectors $x,\, a $ and the matrix and $W_{3}$
