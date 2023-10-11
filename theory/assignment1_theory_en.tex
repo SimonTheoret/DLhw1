@@ -151,35 +151,35 @@ See the assignment policy on the course website for more details.}
 Let $z=W_{2}h+b_{2}$.
   \begin{align*}
     \pder{L}{W_1} &= \pder{L}{o} \pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{z}\pder{z}{h}\pder{h}{W_{1}}\\
-    &= \pder{L}{o} W_{3} (\sigma(a)\odot(\bold{1}-\sigma(W_{2}h+b_{2})))W_{2}x^{T}\\
-    &= \pder{L}{o} W_{3} (a \odot (\bold{1}-a)) W_{2} x^{T}
+    &=x\pder{L}{o} W_{3} (\sigma(z)\odot(\bold{1}-\sigma(z)))W_{2}\\
+    &= x\pder{L}{o} W_{3} (a \odot (\bold{1}-a)) W_{2}
   \end{align*}
   To calculate the gradient with respect to $W_{1}$, we need to store the
   vectors $x,\, a $ and the matrix and $W_{3}$
   \begin{align*}
     \pder{L}{W_2} &= \pder{L}{o}\pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{W_{2}} \\
-    &= \pder{L}{o}  W_{3} (\bold{1}-\sigma(W_{2}h+b_{2}))h^{T}\\
-    &= \pder{L}{o} W_{3} (\bold{1}-a) h^{T}
+    &= h\pder{L}{o}  W_{3} \sigma(z)\odot(\bold{1}-\sigma(W_{2}h+b_{2}))\\
+    &= h\pder{L}{o} W_{3} a\odot(\bold{1}-a)
   \end{align*}
   To calculate the gradient with respect to $W_{2}$, we need to store the
   vectors $ h,\, a $ and the matrix and $W_{3}$
   \begin{align*}
     \pder{L}{W_3} &= \pder{L}{o}\pder{o}{W_{3}} \\
-    &= \pder{L}{o}a^{T}
+    &= a\pder{L}{o}
   \end{align*}
   To calculate the gradient with respect to $W_{3}$, we need to store the
   vector $a$.
   \begin{align*}
-    \pder{L}{b_{1}} &=   \pder{h}{b_{1}}\pder{\sigma}{h}\pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
-    &= (\bold{1}-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}\\
-    &= (\bold{1}-a) W_{3} \pder{L}{o}
+    \pder{L}{b_1} &= \pder{L}{o} \pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{z}\pder{z}{h}\pder{h}{b_{1}}\\
+    &=x\pder{L}{o} W_{3} (\sigma(z)\odot(\bold{1}-\sigma(z)))\\
+    &= x\pder{L}{o} W_{3} (a \odot (\bold{1}-a))\\
   \end{align*}
   To calculate the gradient with respect to $b_{1}$, we need to store the
   vectors $ a $ and the matrix $W_{2}$.
   \begin{align*}
-    \pder{L}{b_{2}} &=\pder{\sigma}{b_{2}} \pder{a}{\sigma} \pder{o}{a} \pder{L}{o}\\
-    &=  (\bold{1}-\sigma(W_{2}h+b_{2})) W_{3} \pder{L}{o}\\
-    &=  (\bold{1}-a) W_{3} \pder{L}{o}
+    \pder{L}{b_2} &= \pder{L}{o}\pder{o}{a} \pder{a}{\sigma} \pder{\sigma}{b_{2}} \\
+    &= h\pder{L}{o}  W_{3} \sigma(z)\odot(\bold{1}-\sigma(z))\\
+    &= h\pder{L}{o} W_{3} a \odot (\bold{1}-a)
   \end{align*}
   To calculate the gradient with respect to $b_{2}$, we need to store the
   vectors $ a $ and the matrix $W_{3}$.
@@ -199,14 +199,14 @@ Let $z=W_{2}h+b_{2}$.
 \subsubsection*{3}
 Firstly, we need to calculate the right limit:
 \begin{equation*}
-  \lim_{x\to0} \frac{ Relu(x)-0 }{x-0},\, x > 0
+  \lim_{x\to0} \frac{ Relu(x)-0 }{x-0} = \lim_{x\to0} \frac{ x-0 }{x-0} = 1 \quad x > 0
 \end{equation*}This limit is obvously 1, as the expression can be reduced to 1
 because $Relu(x) = x$ when $x\geq0$.
 The other left side derivative is
 
 \begin{align*}
   \lim_{x\to0} \frac{ Relu(x)-0 }{x-0} &= \lim_{x\to0} \frac{0}{x} \\
-  &= 0 \, \text{for $x$ < 0}
+  &= 0 \quad \text{for $x$ < 0}
 \end{align*}We can conclude that the left side derivative is 0 around 0.
 
 }
@@ -293,24 +293,23 @@ prefer the Relu function because it is convex.
 % Write your answer here
 \subsubsection*{1}
 \begin{enumerate}[label=(\alph*)]
- \item If you apply a filter with a receptive field bigger than 1, and without
-% TODO
-insert padding name here padding, the feature map size decrease.
- \item It reduces the size of the feature map
+        % TODO: what do they want?
+ \item If you apply a filter with a kernel size bigger than 2, and without the feature map size decrease.
+ \item It reduces the size of the feature map.
  \item
 % TODO: Better formulation
-Two layers are sparsely connected if the matrix $A$ in the  is mostly composed of
-zeroes
- \item The bias inside the convolution layer are not useful in this case,
-        substracted by the normalization  and then added back by the Batch
-        normalization layer.
+Two layers are sparsely connected if the weight matrix $A$ in the is mostly
+composed of zeroes
+ \item The bias inside the convolution layer are not useful in this case, they are
+substracted by the normalization and then added back by the Batch normalization
+layer.
 \end{enumerate}
 \subsubsection*{2}
 \begin{enumerate}[label=(\alph*)]
-\item aka le nombre de channels est important ?
+\item True
 \item False
 \item True
-\item
+\ite True
 \end{enumerate}
 \subsubsection*{3}
 
