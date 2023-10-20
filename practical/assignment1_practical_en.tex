@@ -1,7 +1,7 @@
 \documentclass[12pt]{article}
 \usepackage[canadien]{babel} 
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+\usepackage[t1]{fontenc}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
 \usepackage{enumerate}
@@ -25,12 +25,12 @@
     urlcolor={blue!80!black}
 }
 
-% If your paper is accepted, change the options for the package
+% if your paper is accepted, change the options for the package
 % aistats2e as follows:
 %
 %\usepackage[accepted]{aistats2e}
 %
-% This option will print headings for the title of your paper and
+% this option will print headings for the title of your paper and
 % headings for the authors names, plus a copyright note at the end of
 % the first column of the first page.
 \setlength{\parindent}{0cm}
@@ -43,7 +43,7 @@
 \pagestyle{fancy}
 
 %************
-%* COMMANDS *
+%* commands *
 %************
 
 \input{math_commands.tex}
@@ -61,15 +61,15 @@
 
 \usepackage{amsthm}
 \theoremstyle{definition}
-\newtheorem{exercise}{Question}%[chapter]
-\newtheorem{answer}{Answer} % asterisk to remove ordering
+\newtheorem{exercise}{question}%[chapter]
+\newtheorem{answer}{answer} % asterisk to remove ordering
 
-\newcommand{\Exercise}[1]{
+\newcommand{\exercise}[1]{
 \ifexercise#1\fi
 }
 
 \definecolor{answer}{rgb}{0.00, 0.12, 0.60}
-\newcommand{\Answer}[1]{
+\newcommand{\answer}[1]{
 \ifsolution\color{answer}\begin{answer}#1\end{answer}\fi
 }
 
@@ -88,131 +88,131 @@
 \fancyhead{}
 \fancyfoot{}
 
-\fancyhead[L]{
+\fancyhead[l]{
   \begin{tabular}[b]{l}
-    IFT6135-A2023  \\
-    Prof: Aishwarya Agrawal \\
+    ift6135-a2023  \\
+    prof: aishwarya agrawal \\
   \end{tabular}
 }
-\fancyhead[R]{
+\fancyhead[r]{
   \begin{tabular}[b]{r}
-    Assignment 1 - Programming  \\
-    Multilayer Perceptrons and Convolutional Neural Networks \\
+    assignment 1 - programming  \\
+    multilayer perceptrons and convolutional neural networks \\
   \end{tabular}
 }
-\fancyfoot[C]{- Do not distribute -}
+\fancyfoot[c]{- do not distribute -}
 
 \vspace{1cm}
 
 \shorthandoff{:}
-{\textbf{Due Date: October 21th, 2023 at 11:00 pm}}\\
+{\textbf{due date: october 21th, 2023 at 11:00 pm}}\\
 
 \vspace{-0.5cm}
-\uline{The use of AI tools like Chat-GPT to find answers or parts of answers for any question in this assignment is not allowed. However, you can use these tools to improve the quality of your writing, like fixing grammar or making it more understandable. If you do use these tools, you must clearly explain how you used them and which questions or parts of questions you applied them to. Failing to do so or using these tools to find answers or parts of answers may result in your work being completely rejected, which means you'll receive a score of 0 for the entire practical section.}
+\uline{the use of ai tools like chat-gpt to find answers or parts of answers for any question in this assignment is not allowed. however, you can use these tools to improve the quality of your writing, like fixing grammar or making it more understandable. if you do use these tools, you must clearly explain how you used them and which questions or parts of questions you applied them to. failing to do so or using these tools to find answers or parts of answers may result in your work being completely rejected, which means you'll receive a score of 0 for the entire practical section.}
 
 
 \renewcommand{\labelitemi}{\textbullet}
 
 \begin{itemize}
-\item \emph{This assignment is intensive, start well ahead of time!}
-\item \emph{For all questions, show your work.}
-\item \emph{The practical part has been provided to you as a Jupyter Notebook on Google Colab. You must fill in your answers in the notebook and export the notebook as a Python file named \texttt{solution.py} (File$\xrightarrow{}$Download$\xrightarrow{}$Download .py) and submit it via Gradescope for autograding.}
-\item \emph{You must also submit your report (PDF) on Gradescope. Your report must contain answers to Questions 1.1 d), 1.2 j) k) l), and 3.5 to 3.9. You do not need to submit code for these questions, just the report will suffice.}
-\item \emph{TAs for this assignment are \textbf{Shuo Zhang and Thomas Jiralerspong}.}
+\item \emph{this assignment is intensive, start well ahead of time!}
+\item \emph{for all questions, show your work.}
+\item \emph{the practical part has been provided to you as a jupyter notebook on google colab. you must fill in your answers in the notebook and export the notebook as a python file named \texttt{solution.py} (file$\xrightarrow{}$download$\xrightarrow{}$download .py) and submit it via gradescope for autograding.}
+\item \emph{you must also submit your report (pdf) on gradescope. your report must contain answers to questions 1.1 d), 1.2 j) k) l), and 3.5 to 3.9. you do not need to submit code for these questions, just the report will suffice.}
+\item \emph{tas for this assignment are \textbf{shuo zhang and thomas jiralerspong}.}
 \end{itemize}
 \vspace{0.2cm}
 
-\textbf{Link to Notebook:} \href{https://colab.research.google.com/drive/1DaGyIZQ9b_7TII_hEI8pAe2xotMVedXU?usp=sharing}{Click here.}
+\textbf{link to notebook:} \href{https://colab.research.google.com/drive/1dagyizq9b_7tii_hei8pae2xotmvedxu?usp=sharing}{click here.}
 \vspace{0.2cm}
 
-% Q1
-\begin{exercise}[30] \textbf{(Implementing Perceptron and MLP with NumPy)}
-\Exercise{\label{ex:mlp}
+% q1
+\begin{exercise}[30] \textbf{(implementing perceptron and mlp with numpy)}
+\exercise{\label{ex:mlp}
 
 \begin{enumerate}[label=(\theexercise.\arabic*)]
-    \item Implement a perceptron, follow the provided Colab Notebook for instructions. (5) \\ \\
-    The following parts will be automatically graded:
+    \item implement a perceptron, follow the provided colab notebook for instructions. (5) \\ \\
+    the following parts will be automatically graded:
     \begin{enumerate}
-        \item Implement the \textbf{relu} activation function, which is defined as $\max(x, 0)$ for any input vector $x$. (0.5)
-        \item Implement the \textbf{fire} function, which determines whether the perceptron is activated/fired given a stimulus $x$. (1)
-        \item Implement the \textbf{train} function. It takes an input vector $x$, a label $y$, and a learning rate $lr$. The train function then performs \textbf{one} iteration of backpropagation. It calculates the gradients of the loss w.r.t. weights $w$ and biases $b$, then updates them using the given learning rate $lr$. (2.5)
-    \end{enumerate} 
+        \item implement the \textbf{relu} activation function, which is defined as $\max(x, 0)$ for any input vector $x$. (0.5)
+        \item implement the \textbf{fire} function, which determines whether the perceptron is activated/fired given a stimulus $x$. (1)
+        \item implement the \textbf{train} function. it takes an input vector $x$, a label $y$, and a learning rate $lr$. the train function then performs \textbf{one} iteration of backpropagation. it calculates the gradients of the loss w.r.t. weights $w$ and biases $b$, then updates them using the given learning rate $lr$. (2.5)
+    \end{enumerate}
 
-    The following parts should be submitted in the PDF report and will be graded manually:
+    the following parts should be submitted in the pdf report and will be graded manually:
     \begin{enumerate}[start=4]
-        \item Using the provided data and graph function, train the perceptron for 3 epochs using the learning rate of $0.001$. Show your results (decision boundary graph) in the PDF report. (1)
+        \item using the provided data and graph function, train the perceptron for 3 epochs using the learning rate of $0.001$. show your results (decision boundary graph) in the pdf report. (1)
     \end{enumerate}
 
     \vspace{0.3cm}
-    \item Implement MLP, follow the provided Colab Notebook for instructions. (25) \\ \\
-    The following parts will be automatically graded:
+    \item implement mlp, follow the provided colab notebook for instructions. (25) \\ \\
+    the following parts will be automatically graded:
     \begin{enumerate}
-        \item Implement the function \textbf{init\_parameters}. This initializes the weights $w$ of the MLP with values sampled from a uniform distribution $\mathcal{U}\left[-\frac{1}{\sqrt{h_0}}, \frac{1}{\sqrt{h_0}}\right]$, where $h_0$ is the dimension of the input embedding. Then, initialize the biases $b$ of the MLP with zeros. (1) 
-        \item Implement the function \textbf{gradient\_activation\_fn}. In this function, you need to implement the gradient computation functions for the activation functions relu, sigmoid and tanh respectively. (1)
-        \item Implement the function \textbf{softmax}. Make sure to avoid numerical instability using the translation invariance property of softmax: $\text{softmax}(x) = \text{softmax}(x + c)$, where $c$ is constant. (1)
-        \item Implement the function \textbf{layer\_forward}. In this function, you will do forward propagation for \textbf{one} layer. This function will then be called in a \textit{for} loop across all layers. Remember to treat the output layer differently in order to have probabilities as output. Note that this function stores its outputs to be used later during backpropagation. (3)
-        \item Implement the function \textbf{forward}. In this function, you will apply the \textit{layer\_forward} function implemented above across all layers. (2)
-        \item Implement the function \textbf{cross\_entropy\_loss}. In this function, you will implement the cross-entropy loss between model predictions and true labels. Cross-entropy loss is the primary loss for classification. (2)
-        \item Implement the function \textbf{layer\_backward}. In this function, you will implement the backpropagation algorithm for \textbf{one} layer. This function will then be called in a \textit{for} loop across all layers from the output layer till the first layer. The necessary information $a$, $a_{prev}$ and $w$ have been coded for you, use them to calculate the gradients. $a$ is the postactivation vector of the current layer, $a_{prev}$ is the postactivation vector of the previous layer, $w$ is the weight matrix of the current layer. The output layer has been treated differently, you only need to add the code for the remaining layers. Note that this function only calculates the gradients and does not update weights and biases. (5)
-        \item Implement the function \textbf{backward}. In this function, you will take the gradients calculated with \textit{layer\_backward} above and update the model weights and biases. (2)
-        \item Implement the function \textbf{one\_hot\_encode}. In this function, you will convert an input array of class indices to their corresponding one-hot vectors. For example, for the input array [0, 2, 1], where 0, 2 and 1 are class labels for each of the three input sample, the output should be [[1, 0, 0], [0, 0, 1], [0, 1, 0]]. For 0, only the 0th entry is 1, other entries are 0; for 2, the 2nd entry is 1, others are 0; for 1, the 1st entry is 1, others are 0. (2)
+        \item implement the function \textbf{init\_parameters}. this initializes the weights $w$ of the mlp with values sampled from a uniform distribution $\mathcal{u}\left[-\frac{1}{\sqrt{h_0}}, \frac{1}{\sqrt{h_0}}\right]$, where $h_0$ is the dimension of the input embedding. then, initialize the biases $b$ of the mlp with zeros. (1)
+        \item implement the function \textbf{gradient\_activation\_fn}. in this function, you need to implement the gradient computation functions for the activation functions relu, sigmoid and tanh respectively. (1)
+        \item implement the function \textbf{softmax}. make sure to avoid numerical instability using the translation invariance property of softmax: $\text{softmax}(x) = \text{softmax}(x + c)$, where $c$ is constant. (1)
+        \item implement the function \textbf{layer\_forward}. in this function, you will do forward propagation for \textbf{one} layer. this function will then be called in a \textit{for} loop across all layers. remember to treat the output layer differently in order to have probabilities as output. note that this function stores its outputs to be used later during backpropagation. (3)
+        \item implement the function \textbf{forward}. in this function, you will apply the \textit{layer\_forward} function implemented above across all layers. (2)
+        \item implement the function \textbf{cross\_entropy\_loss}. in this function, you will implement the cross-entropy loss between model predictions and true labels. cross-entropy loss is the primary loss for classification. (2)
+        \item implement the function \textbf{layer\_backward}. in this function, you will implement the backpropagation algorithm for \textbf{one} layer. this function will then be called in a \textit{for} loop across all layers from the output layer till the first layer. the necessary information $a$, $a_{prev}$ and $w$ have been coded for you, use them to calculate the gradients. $a$ is the postactivation vector of the current layer, $a_{prev}$ is the postactivation vector of the previous layer, $w$ is the weight matrix of the current layer. the output layer has been treated differently, you only need to add the code for the remaining layers. note that this function only calculates the gradients and does not update weights and biases. (5)
+        \item implement the function \textbf{backward}. in this function, you will take the gradients calculated with \textit{layer\_backward} above and update the model weights and biases. (2)
+        \item implement the function \textbf{one\_hot\_encode}. in this function, you will convert an input array of class indices to their corresponding one-hot vectors. for example, for the input array [0, 2, 1], where 0, 2 and 1 are class labels for each of the three input sample, the output should be [[1, 0, 0], [0, 0, 1], [0, 1, 0]]. for 0, only the 0th entry is 1, other entries are 0; for 2, the 2nd entry is 1, others are 0; for 1, the 1st entry is 1, others are 0. (2)
     \end{enumerate}
-    The following parts should be submitted in the PDF report and will be graded manually:
+    the following parts should be submitted in the pdf report and will be graded manually:
     \begin{enumerate}[start=10]
-    \item Train the model using the provided MNIST data for 1 epoch with the following batch sizes: 16, 32, 64, 128. Use the default learning rate and activation function. Take the graphs produced by the train function and include them in your report. What is your observation? Explain briefly in your report. (2)
-    \item Train the model for 1 epoch with the following learning rates: 0.1, 0.01, 0.001, 0.0001. Use the default batch size and activation function. Take the graphs produced by the train function and include them in your report. What is your observation? Explain briefly in your report. (2)
-    \item Train the model for 1 epoch with the following activation functions: relu, sigmoid and tanh. Use the default learning rate and batch size. Take the graphs produced by the train function and include them in your report. What is your observation? Explain briefly in your report. (2)
+    \item train the model using the provided mnist data for 1 epoch with the following batch sizes: 16, 32, 64, 128. use the default learning rate and activation function. take the graphs produced by the train function and include them in your report. what is your observation? explain briefly in your report. (2)
+    \item train the model for 1 epoch with the following learning rates: 0.1, 0.01, 0.001, 0.0001. use the default batch size and activation function. take the graphs produced by the train function and include them in your report. what is your observation? explain briefly in your report. (2)
+    \item train the model for 1 epoch with the following activation functions: relu, sigmoid and tanh. use the default learning rate and batch size. take the graphs produced by the train function and include them in your report. what is your observation? explain briefly in your report. (2)
     \end{enumerate}
 \end{enumerate}}
 
 \end{exercise}
 
-% Q2
-\begin{exercise}[20] \textbf{(Implementing CNN layers with NumPy)}
-\Exercise{\label{ex:cnn}
+% q2
+\begin{exercise}[20] \textbf{(implementing cnn layers with numpy)}
+\exercise{\label{ex:cnn}
 
-Convolutional neural networks (CNN) differ from MLPs mainly because of two components: a convolution layer and a pooling layer. In this exercise, we have a convolution layer of filter size $(3 \times 3)$ and stride 1 consisting of 32 units, and a max-pooling layer of filter size $(2 \times 2)$. The inputs to the convolution layer are each of size $(1 \times 128 \times 128)$ (single channel) while the inputs to the max-pooling layer is the size of the convolution layer's outputs. You will code up the forward and backward passes for these two layers using NumPy. You may refer to \href{https://www.dropbox.com/s/1we47vaegqd4zjn/lecture_4_convnets.pdf?dl=0}{these slides} for details.
+convolutional neural networks (cnn) differ from mlps mainly because of two components: a convolution layer and a pooling layer. in this exercise, we have a convolution layer of filter size $(3 \times 3)$ and stride 1 consisting of 32 units, and a max-pooling layer of filter size $(2 \times 2)$. the inputs to the convolution layer are each of size $(1 \times 128 \times 128)$ (single channel) while the inputs to the max-pooling layer is the size of the convolution layer's outputs. you will code up the forward and backward passes for these two layers using numpy. you may refer to \href{https://www.dropbox.com/s/1we47vaegqd4zjn/lecture_4_convnets.pdf?dl=0}{these slides} for details.
 
 \vspace{-1em}
 
 \begin{enumerate}[label=(\theexercise.\arabic*)]
-    \item Write the \textbf{\_get\_filtersizeXfiltersize\_views} function for the 2d convolution layer. This function traverses its input matrix in steps of the given stride, and returns the views formed by the given filter/channel size at each step. (2)
-    \item Write the \textbf{forward} function for the convolution layer. The input to \textbf{forward} is a \textit{np.ndarray} of size $(\text{batch size} \times 1 \times 128 \times 128$) (we consider only 1 color channel here), and the output is the result of the convolution operation. (2)
-    \item Write the \textbf{backward} function for the convolution layer. We assume that the input to this function is the derivative of the loss w.r.t. the output of the layer. The output of the function is the gradient of the loss with respect to the parameters of the layer. (8)
-    \item Write the \textbf{\_get\_filtersizeXfiltersize\_views} function for the max-pooling layer. (1)
-    \item Write the \textbf{forward} function for the max-pooling layer. (1)
-    \item Write the \textbf{backward} function for the max-pooling layer. We assume that the input to this function is the derivative of the loss w.r.t. the output of the layer. The output of the function is the gradient of the loss w.r.t. the input to the layer. (6)
+    \item write the \textbf{\_get\_filtersizexfiltersize\_views} function for the 2d convolution layer. this function traverses its input matrix in steps of the given stride, and returns the views formed by the given filter/channel size at each step. (2)
+    \item write the \textbf{forward} function for the convolution layer. the input to \textbf{forward} is a \textit{np.ndarray} of size $(\text{batch size} \times 1 \times 128 \times 128$) (we consider only 1 color channel here), and the output is the result of the convolution operation. (2)
+    \item write the \textbf{backward} function for the convolution layer. we assume that the input to this function is the derivative of the loss w.r.t. the output of the layer. the output of the function is the gradient of the loss with respect to the parameters of the layer. (8)
+    \item write the \textbf{\_get\_filtersizexfiltersize\_views} function for the max-pooling layer. (1)
+    \item write the \textbf{forward} function for the max-pooling layer. (1)
+    \item write the \textbf{backward} function for the max-pooling layer. we assume that the input to this function is the derivative of the loss w.r.t. the output of the layer. the output of the function is the gradient of the loss w.r.t. the input to the layer. (6)
 \end{enumerate}
 }
 
 \end{exercise}
 
-% Q3
-\begin{exercise}[50] \textbf{(Implementation and experimentation)}
-\Exercise{\label{ex:torch}
-An important skill for any deep learning practitioner is being able to implement a state-of-the-art architecture yourself using a deep learning library.
+% q3
+\begin{exercise}[50] \textbf{(implementation and experimentation)}
+\exercise{\label{ex:torch}
+an important skill for any deep learning practitioner is being able to implement a state-of-the-art architecture yourself using a deep learning library.
 
-In this section, you will implement one of the most influential CNN architectures of all time (VGG16) using PyTorch. You will then perform several experiments with it. 
+in this section, you will implement one of the most influential cnn architectures of all time (vgg16) using pytorch. you will then perform several experiments with it.
 \vspace{1em}
 \begin{enumerate}[label=(\theexercise.\arabic*)]
-    \item Read the first 4 pages of \href{https://arxiv.org/pdf/1409.1556.pdf}{the original VGG16 paper}.
-    \item Use the information found in the paper to complete the code for the VGG16 model in the Colab notebook. Use the model in column D of the table on page 3. Note that since CIFAR-10 only has 10 classes compared to the 1000 classes used in the paper, the final fully connected layer will have an output dimension of 10 instead of 1000. Use \ttt{xavier\_uniform} initialization for all the layers with weights.
-    Also, add 2D batch normalization after every convolutional layer. Do not add dropout. Don't forget the final softmax!
-    Do not make any changes to the data pre-processing pipeline!
-    Once you have finished implementing the VGG16 model, test your implementation using the autograder on Gradescope (10)
+    \item read the first 4 pages of \href{https://arxiv.org/pdf/1409.1556.pdf}{the original vgg16 paper}.
+    \item use the information found in the paper to complete the code for the vgg16 model in the colab notebook. use the model in column d of the table on page 3. note that since cifar-10 only has 10 classes compared to the 1000 classes used in the paper, the final fully connected layer will have an output dimension of 10 instead of 1000. use \ttt{xavier\_uniform} initialization for all the layers with weights.
+    also, add 2d batch normalization after every convolutional layer. do not add dropout. don't forget the final softmax!
+    do not make any changes to the data pre-processing pipeline!
+    once you have finished implementing the vgg16 model, test your implementation using the autograder on gradescope (10)
 
 \end{enumerate}
-The following parts should be submitted in the PDF report and will be graded manually:
+the following parts should be submitted in the pdf report and will be graded manually:
 \begin{enumerate}[start=3]
-    \item Write the \ttt{train\_loop} function and train the model on the CIFAR-10 dataset. Also complete \ttt{valid\_loop}, which is used to validate the model's performance. Perform validation after every training epoch. Each epoch should take around 15 minutes on a T4 GPU on Google Colab. You may stop training when the validation loss starts to consistently go up (early stopping)
-    \item Design your own architecture from scratch, implement it using PyTorch and train it with the same hyperparameters as the VGG16 model. You \textbf{may not} use an existing architecture which can be found online. 
-    \item Provide an explanation of why you made the choices you did for your own architecture. (10)
-    \item Plot curves of the training loss, training accuracy, validation loss and validation accuracy across epochs for both models and include it in your report.  (5)
-    \item Provide an analysis of the results and why you think one architecture performed better or worst than the other. (10)
-    \item Visualize a few filters from the first and last convolution layers in the trained model (helper methods have been provided). Include the images in your report and comment on the features learnt by the first and last convolution layers. How do they differ? (5)
-    \item Visualize the feature maps from the same filters for the first and last convolution layers in the trained model for the image provided in the variable \ttt{vis\_image} in the Colab notebook. Include the images in your report. Comment on the features from the input detected by specific filters that could help classify the image. (5)
-    \item Construct an MLP with approximately equal parameters as  VGG16 and train it on the CIFAR-10 dataset. Include a table in your report comparing the MLP and CNN -- list the number of parameters, validation accuracy, validation loss and training time for the same number of epochs (25 epochs). Which model is better and why do you think so? (5)
-    \item Submit a link to your Google Colab notebook in your PDF report (at the top) as well, make sure to make it publicly viewable!
+    \item write the \ttt{train\_loop} function and train the model on the cifar-10 dataset. also complete \ttt{valid\_loop}, which is used to validate the model's performance. perform validation after every training epoch. each epoch should take around 15 minutes on a t4 gpu on google colab. you may stop training when the validation loss starts to consistently go up (early stopping)
+    \item design your own architecture from scratch, implement it using pytorch and train it with the same hyperparameters as the vgg16 model. you \textbf{may not} use an existing architecture which can be found online.
+    \item provide an explanation of why you made the choices you did for your own architecture. (10)
+    \item plot curves of the training loss, training accuracy, validation loss and validation accuracy across epochs for both models and include it in your report.  (5)
+    \item provide an analysis of the results and why you think one architecture performed better or worst than the other. (10)
+    \item visualize a few filters from the first and last convolution layers in the trained model (helper methods have been provided). include the images in your report and comment on the features learnt by the first and last convolution layers. how do they differ? (5)
+    \item visualize the feature maps from the same filters for the first and last convolution layers in the trained model for the image provided in the variable \ttt{vis\_image} in the colab notebook. include the images in your report. comment on the features from the input detected by specific filters that could help classify the image. (5)
+    \item construct an mlp with approximately equal parameters as  vgg16 and train it on the cifar-10 dataset. include a table in your report comparing the mlp and cnn -- list the number of parameters, validation accuracy, validation loss and training time for the same number of epochs (25 epochs). which model is better and why do you think so? (5)
+    \item submit a link to your google colab notebook in your pdf report (at the top) as well, make sure to make it publicly viewable!
 \end{enumerate}
 }
 \vspace{1em}
